@@ -14,13 +14,14 @@ def getAadharDetails(request, pk):
     bankDetail = BankDetail.objects.get(pk=pk)
     qualfDetail = Qualification.objects.get(pk=pk)
     expDetail = PastJobExperience.objects.get(pk=pk)
-    sr1 = AadharSerializer(adhar)
-    sr2 = PersonalDetailSerializer(personalDetail)
-    sr3 = AddressSerializer(addressDetail)
-    sr4 = BankDetailSerializer(bankDetail)
-    sr5 = QualificationSerializer(qualfDetail)
-    sr6 = PastJobExperienceSerializer(expDetail)
-    serializers = (sr1, sr2, sr3, sr4, sr5, sr6)
+    serializers = (
+        AadharSerializer(adhar),
+        PersonalDetailSerializer(personalDetail),
+        AddressSerializer(addressDetail),
+        BankDetailSerializer(bankDetail),
+        QualificationSerializer(qualfDetail),
+        PastJobExperienceSerializer(expDetail)
+    )
     sr = []
     for serializer in serializers:
         sr.append(serializer.data)
