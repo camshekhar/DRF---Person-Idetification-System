@@ -4,12 +4,12 @@ from . import views
 
 urlpatterns = [
     # URLs for RETRIEVE data.
-    path('Aadhar/', views.getAadharDetails),
-    path('Aadhar/PersonalDetail/', views.getAdharPersonalDetails),
-    path('Aadhar/Address/', views.getAdharAddress),
-    path('Aadhar/Qualification/', views.getQualificationDetails),
-    path('Aadhar/Bank/', views.getAdharBankDetails),
-    path('Aadhar/PastJobExp/', views.getPastJobExpDetails),
+    path('AadharDetails/<str:pk>/', views.getAadharDetails),
+    # path('Aadhar/PersonalDetail/', views.getAdharPersonalDetails),
+    # path('Aadhar/Address/', views.getAdharAddress),
+    # path('Aadhar/Qualification/', views.getQualificationDetails),
+    # path('Aadhar/Bank/', views.getAdharBankDetails),
+    # path('Aadhar/PastJobExp/', views.getPastJobExpDetails),
     
     # URLs for CREATE data.
     path('Aadhar/addNewAadhar', views.addAadhar),

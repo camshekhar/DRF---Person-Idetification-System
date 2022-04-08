@@ -6,40 +6,55 @@ from .serializers import PersonalDetailSerializer, AadharSerializer, AddressSeri
 
 # RETRIEVE Requests Starts Here........
 @api_view(['GET'])
-def getAadharDetails(request):
-    adhar = Aadhar.objects.all()
-    data = AadharSerializer(adhar, many=True).data
-    return Response(data)
+# pk = Aadhar Number.
+def getAadharDetails(request, pk):
+    adhar = Aadhar.objects.get(pk=pk)
+    personalDetail = PersonalDetail.objects.get(pk=pk)
+    addressDetail = Address.objects.get(pk=pk)
+    bankDetail = BankDetail.objects.get(pk=pk)
+    qualfDetail = Qualification.objects.get(pk=pk)
+    expDetail = PastJobExperience.objects.get(pk=pk)
+    sr1 = AadharSerializer(adhar)
+    sr2 = PersonalDetailSerializer(personalDetail)
+    sr3 = AddressSerializer(addressDetail)
+    sr4 = BankDetailSerializer(bankDetail)
+    sr5 = QualificationSerializer(qualfDetail)
+    sr6 = PastJobExperienceSerializer(expDetail)
+    serializers = (sr1, sr2, sr3, sr4, sr5, sr6)
+    sr = []
+    for serializer in serializers:
+        sr.append(serializer.data)
+    return Response(sr)
 
-@api_view(['GET'])
-def getAdharPersonalDetails(request):
-    personalDetail = PersonalDetail.objects.all()
-    data = PersonalDetailSerializer(personalDetail, many=True).data 
-    return Response(data)
+# @api_view(['GET'])
+# def getAdharPersonalDetails(request):
+#     personalDetail = PersonalDetail.objects.all()
+#     data = PersonalDetailSerializer(personalDetail, many=True).data 
+#     return Response(data)
 
-@api_view(['GET'])
-def getAdharAddress(request):
-    addressDetail = Address.objects.all()
-    data = AddressSerializer(addressDetail, many=True).data
-    return Response(data)
+# @api_view(['GET'])
+# def getAdharAddress(request):
+#     addressDetail = Address.objects.all()
+#     data = AddressSerializer(addressDetail, many=True).data
+#     return Response(data)
 
-@api_view(['GET'])
-def getAdharBankDetails(request):
-    addressDetail = BankDetail.objects.all()
-    data = BankDetailSerializer(addressDetail, many=True).data
-    return Response(data)
+# @api_view(['GET'])
+# def getAdharBankDetails(request):
+#     addressDetail = BankDetail.objects.all()
+#     data = BankDetailSerializer(addressDetail, many=True).data
+#     return Response(data)
 
-@api_view(['GET'])
-def getQualificationDetails(request):
-    addressDetail = Qualification.objects.all()
-    data = QualificationSerializer(addressDetail, many=True).data
-    return Response(data)
+# @api_view(['GET'])
+# def getQualificationDetails(request):
+#     addressDetail = Qualification.objects.all()
+#     data = QualificationSerializer(addressDetail, many=True).data
+#     return Response(data)
 
-@api_view(['GET'])
-def getPastJobExpDetails(request):
-    expDetails = PastJobExperience.objects.all()
-    serializer = PastJobExperienceSerializer(expDetails, many=True)
-    return Response(serializer.data)
+# @api_view(['GET'])
+# def getPastJobExpDetails(request):
+#     expDetails = PastJobExperience.objects.all()
+#     serializer = PastJobExperienceSerializer(expDetails, many=True)
+#     return Response(serializer.data)
 
 
 #  CREATE Requests Starts Here.......
@@ -149,6 +164,7 @@ def updatePastJobExpDetails(request, pk):
 
 # DELETE Request Handled Here....
 @api_view(['DELETE'])
+# This command will delete all Data related to entered Aadhar Number.
 def deleteAadhar(request, pk):
     aadhar = Aadhar.objects.get(pk=pk)
     aadhar.delete()
